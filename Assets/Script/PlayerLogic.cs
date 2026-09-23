@@ -19,7 +19,7 @@ public class PlayerLogic : MonoBehaviour
     [Header("UI & Systems")]
     public TextMeshPro tutorialText;
     public GameManager gameManager;
-    public ElevatorTransition elevatorTransition; // เพิ่มช่องเชื่อมระบบสลับแมป
+    public ElevatorTransition elevatorTransition;
 
     void Start()
     {
@@ -37,14 +37,14 @@ public class PlayerLogic : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // 1. เก็บพลังงาน (สำหรับห้องจริง)
+
         if (other.CompareTag("Energy"))
         {
             hasEnergy = true;
             Destroy(other.gameObject);
         }
 
-        // 2. ลิฟต์ห้องเล่นจริง (ต้องมีพลังงาน ถึงจะไฟดับและมอนออก)
+
         if (other.CompareTag("Elevator") && hasEnergy == true)
         {
             hasEnergy = false;
@@ -53,14 +53,14 @@ public class PlayerLogic : MonoBehaviour
             if (gameManager != null) gameManager.StartWave();
         }
 
-        // 3. ลิฟต์ห้องสอนเล่น (เดินเข้าปุ๊บ สลับไปแมปหลักทันที มอนไม่เกิด)
+
         else if (other.CompareTag("TutorialElevator"))
         {
             if (hasEnergy == true)
             {
                 hasEnergy = false;
 
-                // สั่งให้ลิฟต์เริ่มทำงาน ปิดประตูและนับเวลา 5 วินาที
+
                 if (elevatorTransition != null)
                 {
                     elevatorTransition.StartTransitionDelay();
@@ -68,7 +68,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                // ถ้าเดินเข้าลิฟต์แต่ยังไม่มีพลังงาน ให้โชว์ข้อความเตือน
+
                 ShowTutorialText("ลิฟต์ยังไม่มีพลังงาน...");
             }
         }

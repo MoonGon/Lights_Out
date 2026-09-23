@@ -7,7 +7,6 @@ public class TutorialZone : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // ถ้าคนที่เดินมาชนคือ Player ให้โชว์ข้อความ
         if (other.CompareTag("Player"))
         {
             PlayerLogic player = other.GetComponent<PlayerLogic>();
@@ -17,7 +16,6 @@ public class TutorialZone : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // ถ้า Player เดินออกจากโซน ให้ซ่อนข้อความ
         if (other.CompareTag("Player"))
         {
             PlayerLogic player = other.GetComponent<PlayerLogic>();

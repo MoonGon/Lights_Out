@@ -3,11 +3,10 @@ using UnityEngine.Rendering.Universal;
 
 public class MonsterAI : MonoBehaviour
 {
-    // สร้างตัวเลือก (Dropdown) สำหรับประเภทมอนสเตอร์
     public enum TargetType { ElevatorOnly, PlayerOnly, ClosestTarget }
 
     [Header("Monster Settings")]
-    public TargetType targetType = TargetType.ElevatorOnly; // เลือกประเภทมอนสเตอร์ตรงนี้
+    public TargetType targetType = TargetType.ElevatorOnly;
     public float speed = 2f;
 
     private Transform player;
@@ -16,7 +15,7 @@ public class MonsterAI : MonoBehaviour
 
     void Start()
     {
-        // หาตัวผู้เล่นและลิฟต์ในฉากเตรียมไว้
+
         GameObject pObj = GameObject.FindGameObjectWithTag("Player");
         if (pObj != null) player = pObj.transform;
 
@@ -26,11 +25,11 @@ public class MonsterAI : MonoBehaviour
 
     void Update()
     {
-        DetermineTarget(); // คำนวณหาเป้าหมายก่อนเดิน
+        DetermineTarget(); 
 
         if (currentTarget != null)
         {
-            // เดินพุ่งไปหาเป้าหมายที่เลือกไว้
+
             transform.position = Vector2.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
         }
     }
@@ -50,11 +49,11 @@ public class MonsterAI : MonoBehaviour
             case TargetType.ClosestTarget:
                 if (player != null && elevator != null)
                 {
-                    // วัดระยะทางว่าใครอยู่ใกล้กว่ากัน
+
                     float distToPlayer = Vector2.Distance(transform.position, player.position);
                     float distToElevator = Vector2.Distance(transform.position, elevator.position);
 
-                    // ถ้าผู้เล่นอยู่ใกล้กว่า ให้พุ่งหาผู้เล่น ถ้าลิฟต์ใกล้กว่าพุ่งหาลิฟต์
+
                     currentTarget = (distToPlayer < distToElevator) ? player : elevator;
                 }
                 else if (player != null) currentTarget = player;
@@ -77,7 +76,7 @@ public class MonsterAI : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            // เมื่อมอนสเตอร์วิ่งมาชนผู้เล่น (เอิร์ธสามารถเพิ่มระบบลดเลือดตัวละครตรงนี้ได้ในอนาคต)
+
             Debug.Log("มอนสเตอร์พุ่งชนผู้เล่น!");
             Destroy(gameObject);
         }

@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GameManager: ชาร์จพลังงานสำเร็จ! เริ่มสปอว์นมอนสเตอร์!");
 
-        // เริ่มเสกมอนสเตอร์วนไปเรื่อยๆ
         InvokeRepeating("SpawnMonster", 1f, spawnDelay);
     }
 
@@ -52,14 +51,11 @@ public class GameManager : MonoBehaviour
     {
         if (spawnPoints.Length == 0 || monsterPrefabs.Length == 0) return;
 
-        // สุ่มจุดเกิด
         int randomPoint = Random.Range(0, spawnPoints.Length);
         Transform selectedPoint = spawnPoints[randomPoint];
 
-        // สุ่มประเภทมอนสเตอร์ (แดง, ม่วง, ส้ม)
         int randMonster = Random.Range(0, monsterPrefabs.Length);
 
-        // เสกมอนสเตอร์
         Instantiate(monsterPrefabs[randMonster], selectedPoint.position, Quaternion.identity);
     }
 }
